@@ -1,12 +1,4 @@
 <div id="container" style="margin-left: 150px;" >
   <p>Westernacher test app</p>
-  <ag-grid-angular
-    style="width: 1000px; height: 500px;"
-    class="ag-theme-balham"
-    [enableSorting]="true"
-    [enableFilter]="true"
-    (rowClicked)="onRowClickedEvent($event)"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs">
-  </ag-grid-angular>
+  <app-sortable-grid></app-sortable-grid>
 </div>
