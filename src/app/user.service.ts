@@ -27,7 +27,7 @@ export class UserService {
   }
 
   getUserByEmail(email: any) {
-    return this.http.get<Array<User>>(environment.restUrl + email)
+    return this.http.get<User>(environment.restUrl + email)
       .pipe(
         map(data => {
           return data;

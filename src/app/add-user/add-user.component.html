@@ -5,25 +5,25 @@
     <input type="text" class="form-control" id="firstName" placeholder="First name" [(ngModel)]="user.firstName" name="firstName"
            (change)="checkIfFirstNameIsValid()" required #firstNameField="ngModel" >
     <div *ngIf="firstNameField.invalid && firstNameField.touched" class="alert alert-danger">First Name is required</div>
-    <div *ngIf="!firstNameIsValid && firstNameField.touched" class="alert alert-danger">First Name cannot be blank</div>
+    <div *ngIf="!firstNameIsValid && firstNameField.touched" class="alert alert-danger">First Name is not valid</div>
 
     <label for="lastName">Last Name</label>
     <input type="text" class="form-control" id="lastName" placeholder="Last name" [(ngModel)]="user.lastName" name="lastName"
            (change)="checkIfLastNameIsValid()" required #lastNameField="ngModel" >
     <div *ngIf="lastNameField.invalid && lastNameField.touched" class="alert alert-danger">Last Name is required</div>
-    <div *ngIf="!lastNameIsValid && lastNameField.touched" class="alert alert-danger">Last Name cannot be blank</div>
+    <div *ngIf="!lastNameIsValid && lastNameField.touched" class="alert alert-danger">Last Name is not valid</div>
 
     <label for="email">Email</label>
     <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" name="email"
            (change)="checkIfEmailIsValid()" required #emailField="ngModel" >
     <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email is required</div>
-    <div *ngIf="!emailIsValid && emailField.touched" class="alert alert-danger">Email cannot be blank</div>
+    <div *ngIf="!emailIsValid && emailField.touched" class="alert alert-danger">Email is not valid</div>
 
     <label for="birthDate">Birth Date</label>
     <input type="text" class="form-control" id="birthDate" placeholder="Birth Date" [(ngModel)]="user.birthDate" name="birthDate"
            (change)="checkIfBirthDateIsValid()" required #birthDateField="ngModel" >
     <div *ngIf="birthDateField.invalid && birthDateField.touched" class="alert alert-danger">Birth Date is required</div>
-    <div *ngIf="!birthDateIsValid && birthDateField.touched" class="alert alert-danger">Birth Date cannot be blank</div>
+    <div *ngIf="!birthDateIsValid && birthDateField.touched" class="alert alert-danger">Birth Date is not valid</div>
 
   </div>
 

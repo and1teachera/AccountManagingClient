@@ -54,7 +54,8 @@ export class AddUserComponent implements OnInit {
 
   checkIfEmailIsValid() {
     if (this.user.email) {
-      this.emailIsValid = this.user.email.trim().length > 0;
+      const regexp = new RegExp('[^@]+@[^\\.]+\\..+');
+      this.emailIsValid = regexp.test(this.user.email);
     } else {
       this.emailIsValid = false;
     }
@@ -62,7 +63,8 @@ export class AddUserComponent implements OnInit {
 
   checkIfBirthDateIsValid() {
     if (this.user.birthDate) {
-      this.birthDateIsValid = this.user.birthDate.toString().length > 0;
+      const regexp = new RegExp('\\d{4}[-]\\d{2}[-]\\d{2}');
+      this.birthDateIsValid = regexp.test(this.user.birthDate.toString());
     } else {
       this.birthDateIsValid = false;
     }
