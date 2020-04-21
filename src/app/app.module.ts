@@ -6,10 +6,14 @@ import {AgGridModule} from 'ag-grid-angular';
 import { SortableGridComponent } from './sortable-grid/sortable-grid.component';
 import {RouterModule, Routes} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserComponent } from './user/user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   {path : '', component : SortableGridComponent},
   {path : 'users', component : SortableGridComponent},
+  {path : 'user', component : UserComponent},
+  {path : 'add-user', component : AddUserComponent},
   {path : 'PageNotFound', component : PageNotFoundComponent},
   {path : '**', redirectTo : '/PageNotFound'}
 ];
@@ -18,7 +22,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     SortableGridComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UserComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

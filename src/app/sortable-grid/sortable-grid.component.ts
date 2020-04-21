@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sortable-grid',
@@ -8,7 +9,6 @@ import {UserService} from '../user.service';
 })
 export class SortableGridComponent implements OnInit {
 
-  private userService: UserService;
   private gridApi;
   private gridColumnApi;
   private selectedRow;
@@ -22,8 +22,8 @@ export class SortableGridComponent implements OnInit {
   rowData = [];
   rowSelection;
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+  constructor(private userService: UserService,
+              private router: Router) {
     this.rowSelection = 'single';
   }
 
@@ -34,16 +34,25 @@ export class SortableGridComponent implements OnInit {
     });
   }
 
-
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   }
 
-  onRowClickedEvent($event: any) {
+  onRowClickedEvent() {
     // this.openDialog();
     this.selectedRow = this.gridApi.getSelectedRows()[0];
     console.log(this.selectedRow);
   }
 
+  onRowDoubleClickedEvent() {
+    if (this.gridApi.getSelectedRows().length > 0) {
+      this.selectedRow = this.gridApi.getSelectedRows()[0];
+      const email = this.selectedRow.email;
+      this.router.navigate(['user'], {queryParams: {email}});
+    }
+  }
+  addUser() {
+    this.router.navigate(['add-user']);
+  }
 }
