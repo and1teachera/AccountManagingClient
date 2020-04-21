@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUserByEmail(this.email).then(user => {
+    this.userService.getUserByEmail(this.email).subscribe(user => {
       this.user = user;
     });
   }

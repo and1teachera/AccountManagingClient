@@ -1,37 +1,50 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from './model/User';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError, map, retry} from 'rxjs/operators';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getUsers() {
-    return fetch('http://localhost:8080/api/users')
-      .then(result => result.json())
-      .then(rowData => rowData);
+    return this.http.get<Array<User>>(environment.restUrl)
+      .pipe(
+        map(data => {
+          const rooms = new Array<User>();
+          for (const room of data) {
+            rooms.push(User.fromHttp(room));
+          }
+          return rooms;
+        })
+      );
   }
 
   getUserByEmail(email: any) {
-    return fetch('http://localhost:8080/api/users/' + email)
-      .then(result => result.json())
-      .then(rowData => rowData);
+    return this.http.get<Array<User>>(environment.restUrl + email)
+      .pipe(
+        map(data => {
+          return data;
+        }));
   }
 
 
   deleteUser(email: string): Observable<any> {
-    return this.http.delete('http://localhost:8080/api/users/' + email);
+    return this.http.delete(environment.restUrl + email);
   }
 
   createUser(user: User): Observable<User> {
-    const fullUser = {firstName: user.firstName, lastName: user.lastName,
-      birthDate: user.birthDate, email: user.email};
-    return this.http.post<User>('http://localhost:8080/api/users/', fullUser).pipe(retry(1),
+    const fullUser = {
+      firstName: user.firstName, lastName: user.lastName,
+      birthDate: user.birthDate, email: user.email
+    };
+    return this.http.post<User>(environment.restUrl, fullUser).pipe(retry(1),
       catchError(this.handleError));
   }
 
@@ -46,6 +59,6 @@ export class UserService {
       alert('An error occurred:' + error.error.details);
     }
     return throwError(
-      'Something bad happened; please try again later.');
+      'Error occur; please try again later.');
   }
 }

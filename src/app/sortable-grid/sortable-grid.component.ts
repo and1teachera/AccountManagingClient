@@ -28,7 +28,7 @@ export class SortableGridComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers().then(users => {
+    this.userService.getUsers().subscribe(users => {
       this.rowData = users;
       this.selectedRow = this.rowData[0];
     });
