@@ -52,7 +52,4 @@ export class SortableGridComponent implements OnInit {
       this.router.navigate(['user'], {queryParams: {email}});
     }
   }
-  addUser() {
-    this.router.navigate(['add-user']);
-  }
 }
