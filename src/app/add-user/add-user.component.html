@@ -18,13 +18,15 @@
            (change)="checkIfEmailIsValid()" required #emailField="ngModel" >
     <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email is required</div>
     <div *ngIf="!emailIsValid && emailField.touched" class="alert alert-danger">Email is not valid</div>
-
-    <label for="birthDate">Birth Date</label>
-    <input type="text" class="form-control" id="birthDate" placeholder="Birth Date" [(ngModel)]="user.birthDate" name="birthDate"
-           (change)="checkIfBirthDateIsValid()" required #birthDateField="ngModel" >
-    <div *ngIf="birthDateField.invalid && birthDateField.touched" class="alert alert-danger">Birth Date is required</div>
-    <div *ngIf="!birthDateIsValid && birthDateField.touched" class="alert alert-danger">Birth Date is not valid</div>
-
+    <label for="birthDate">Birth day: </label>
+    <mat-form-field class="example-full-width" id="birthDate">
+      <label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="user.birthDate" name="birthDate"
+               (change)="checkIfBirthDateIsValid()" required #birthDateField="ngModel">
+      </label>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
   </div>
 
   <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>

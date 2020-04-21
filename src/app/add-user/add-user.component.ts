@@ -63,7 +63,7 @@ export class AddUserComponent implements OnInit {
 
   checkIfBirthDateIsValid() {
     if (this.user.birthDate) {
-      const regexp = new RegExp('\\d{4}[-]\\d{2}[-]\\d{2}');
+      const regexp = new RegExp('\\d{1,2}[/]\\d{1,2}[/]\\d{4}');
       this.birthDateIsValid = regexp.test(this.user.birthDate.toString());
     } else {
       this.birthDateIsValid = false;

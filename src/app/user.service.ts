@@ -42,7 +42,7 @@ export class UserService {
   createUser(user: User): Observable<User> {
     const fullUser = {
       firstName: user.firstName, lastName: user.lastName,
-      birthDate: user.birthDate, email: user.email
+      birthDate: user.birthDate.toISOString().slice(0, 10), email: user.email
     };
     return this.http.post<User>(environment.restUrl, fullUser).pipe(retry(1),
       catchError(this.handleError));
