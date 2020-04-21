@@ -5,5 +5,7 @@
   [enableFilter]="true"
   (rowClicked)="onRowClickedEvent($event)"
   [rowData]="rowData"
+  [rowSelection]="rowSelection"
+  (gridReady)="onGridReady($event)"
   [columnDefs]="columnDefs">
 </ag-grid-angular>

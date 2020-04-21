@@ -8,6 +8,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
+  {path : '', component : SortableGridComponent},
   {path : 'users', component : SortableGridComponent},
   {path : 'PageNotFound', component : PageNotFoundComponent},
   {path : '**', redirectTo : '/PageNotFound'}
