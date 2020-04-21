@@ -8,6 +8,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserComponent } from './user/user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {path : '', component : SortableGridComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AgGridModule.withComponents(null),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

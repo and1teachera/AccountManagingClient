@@ -1,7 +1,5 @@
 <div class="userDetails">
   <h2>User details</h2>
-  <a class="btn btn-small btn-warning" >edit</a>
-  <a class="btn btn-small btn-warning">delete</a>
   <table>
     <tr>
       <td>First name</td><td>{{user.firstName}}</td>
@@ -16,4 +14,5 @@
       <td>Birth Date</td><td>{{user.birthDate}}</td>
     </tr>
   </table>
+  <button (click)="deleteUser()" class="btn btn-small btn-warning">Delete</button>
 </div>
