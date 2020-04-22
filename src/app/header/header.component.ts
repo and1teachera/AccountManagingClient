@@ -10,7 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private  dialog: MatDialog, private  router: Router) { }
+  constructor(private  dialog: MatDialog) { }
   ngOnInit(): void {
   }
 
