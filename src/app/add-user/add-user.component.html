@@ -1,33 +1,51 @@
-<form #userForm="ngForm">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Add User</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #userForm="ngForm">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <mat-form-field>
+          <input type="text" class="form-control" id="firstName" placeholder="First name" [(ngModel)]="user.firstName"
+                 name="firstName"
+                 (change)="checkIfFirstNameIsValid()" required #firstNameField="ngModel">
+        </mat-form-field>
+        <div *ngIf="firstNameField.invalid && firstNameField.touched" class="alert alert-danger">First Name is
+          required
+        </div>
+        <div *ngIf="!firstNameIsValid && firstNameField.touched" class="alert alert-danger">First Name is not valid
+        </div>
 
-  <div class="form-group">
-    <label for="firstName">First Name</label>
-    <input type="text" class="form-control" id="firstName" placeholder="First name" [(ngModel)]="user.firstName" name="firstName"
-           (change)="checkIfFirstNameIsValid()" required #firstNameField="ngModel" >
-    <div *ngIf="firstNameField.invalid && firstNameField.touched" class="alert alert-danger">First Name is required</div>
-    <div *ngIf="!firstNameIsValid && firstNameField.touched" class="alert alert-danger">First Name is not valid</div>
+        <label for="lastName">Last Name</label>
 
-    <label for="lastName">Last Name</label>
-    <input type="text" class="form-control" id="lastName" placeholder="Last name" [(ngModel)]="user.lastName" name="lastName"
-           (change)="checkIfLastNameIsValid()" required #lastNameField="ngModel" >
-    <div *ngIf="lastNameField.invalid && lastNameField.touched" class="alert alert-danger">Last Name is required</div>
-    <div *ngIf="!lastNameIsValid && lastNameField.touched" class="alert alert-danger">Last Name is not valid</div>
-
-    <label for="email">Email</label>
-    <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" name="email"
-           (change)="checkIfEmailIsValid()" required #emailField="ngModel" >
-    <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email is required</div>
-    <div *ngIf="!emailIsValid && emailField.touched" class="alert alert-danger">Email is not valid</div>
-    <label for="birthDate">Birth day: </label>
-    <mat-form-field class="example-full-width" id="birthDate">
-      <label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="user.birthDate" name="birthDate"
-               (change)="checkIfBirthDateIsValid()" required #birthDateField="ngModel">
-      </label>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
-</form>
+        <mat-form-field>
+          <input type="text" class="form-control" id="lastName" placeholder="Last name" [(ngModel)]="user.lastName"
+                 name="lastName"
+                 (change)="checkIfLastNameIsValid()" required #lastNameField="ngModel">
+        </mat-form-field>
+        <div *ngIf="lastNameField.invalid && lastNameField.touched" class="alert alert-danger">Last Name is required
+        </div>
+        <div *ngIf="!lastNameIsValid && lastNameField.touched" class="alert alert-danger">Last Name is not valid</div>
+        <label for="email">Email</label>
+        <mat-form-field>
+          <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" name="email"
+                 (change)="checkIfEmailIsValid()" required #emailField="ngModel">
+        </mat-form-field>
+        <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email is required</div>
+        <div *ngIf="!emailIsValid && emailField.touched" class="alert alert-danger">Email is not valid</div>
+        <mat-form-field>
+          <label>Birth day: </label>
+            <input type="date" class="date-field"
+                   matInput [matDatepicker]="picker" [(ngModel)]="user.birthDate"  name="birthDate"
+                   (change)="checkIfBirthDateIsValid()" required #birthDateField="ngModel">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="onSubmit()">Save</button>
+  </mat-card-actions>
+</mat-card>

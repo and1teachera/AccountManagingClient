@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from '../model/User';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MessageComponent} from '../message/message.component';
 
 @Component({
   selector: 'app-add-user',
@@ -10,16 +12,13 @@ import {Router} from '@angular/router';
 })
 export class AddUserComponent implements OnInit {
 
-  @Output()
-  dataChangedEvent = new EventEmitter();
-
   message: string;
   user: User;
   firstNameIsValid = false;
   lastNameIsValid = false;
   emailIsValid = false;
   birthDateIsValid = false;
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private dialogRef: MatDialogRef<MessageComponent>) { }
 
   ngOnInit(): void {
     this.user = new User();
@@ -29,8 +28,8 @@ export class AddUserComponent implements OnInit {
     this.message = 'saving...';
     this.userService.createUser(this.user).subscribe(
         (user) => {
-          this.dataChangedEvent.emit();
-          this.router.navigate(['']);
+          this.router.navigate(['users']);
+          this.dialogRef.close();
         },
         error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
       );

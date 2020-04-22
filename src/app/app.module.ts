@@ -15,6 +15,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {   MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { HeaderComponent } from './header/header.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   {path : '', component : SortableGridComponent},
@@ -32,7 +37,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     UserComponent,
     AddUserComponent,
-    HeaderComponent
+    HeaderComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +51,10 @@ const routes: Routes = [
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
