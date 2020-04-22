@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../model/User';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {AddUserComponent} from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +22,7 @@ export class UserComponent implements OnInit {
   message = '';
 
   constructor(private userService: UserService, private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private dialog: MatDialog) {
     this.activatedRoute.queryParams.subscribe(
       (params) => {
         this.email = params['email'];
@@ -44,5 +46,9 @@ export class UserComponent implements OnInit {
         }, error => this.message = 'Sorry, this user cannot be deleted at this time.'
       );
     }
+  }
+
+  editUser() {
+    this.dialog.open(AddUserComponent);
   }
 }

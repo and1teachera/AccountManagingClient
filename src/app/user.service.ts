@@ -48,6 +48,15 @@ export class UserService {
       catchError(this.handleError));
   }
 
+  updateUser(user: User): Observable<User> {
+    const fullUser = {
+      firstName: user.firstName, lastName: user.lastName,
+      birthDate: user.birthDate.toString().length > 10 ? user.birthDate.toISOString().slice(0, 10) : user.birthDate, email: user.email
+    };
+    return this.http.put<User>(environment.restUrl, fullUser).pipe(retry(1),
+      catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       alert('An error occurred:' + error.error.message);

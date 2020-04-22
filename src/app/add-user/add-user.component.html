@@ -29,7 +29,7 @@
         <div *ngIf="!lastNameIsValid && lastNameField.touched" class="alert alert-danger">Last Name is not valid</div>
         <label for="email">Email</label>
         <mat-form-field>
-          <input type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" name="email"
+          <input [disabled]="mode==='edit'" type="text" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" name="email"
                  (change)="checkIfEmailIsValid()" required #emailField="ngModel">
         </mat-form-field>
         <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email is required</div>

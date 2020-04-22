@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from '../model/User';
 import {UserService} from '../user.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MessageComponent} from '../message/message.component';
 
@@ -14,19 +14,37 @@ export class AddUserComponent implements OnInit {
 
   message: string;
   user: User;
+  mode = 'add';
   firstNameIsValid = false;
   lastNameIsValid = false;
   emailIsValid = false;
   birthDateIsValid = false;
-  constructor(private userService: UserService, private router: Router, private dialogRef: MatDialogRef<MessageComponent>) { }
+
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute,
+              private router: Router, private dialogRef: MatDialogRef<MessageComponent>) {
+  }
 
   ngOnInit(): void {
-    this.user = new User();
+    this.activatedRoute.queryParams.subscribe(
+      (params) => {
+        if (params['email']) {
+          this.mode = 'edit';
+          const email = params['email'];
+          this.userService.getUserByEmail(email).subscribe(user => {
+            this.user = user;
+            this.firstNameIsValid = true;
+            this.lastNameIsValid = true;
+            this.emailIsValid = true;
+            this.birthDateIsValid = true;
+          });
+        }
+      });
   }
 
   onSubmit() {
     this.message = 'saving...';
-    this.userService.createUser(this.user).subscribe(
+    if (this.mode === 'edit') {
+      this.userService.updateUser(this.user).subscribe(
         (user) => {
           this.router.navigate(['users']);
           this.dialogRef.close();
@@ -34,6 +52,14 @@ export class AddUserComponent implements OnInit {
         error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
       );
     }
+    this.userService.createUser(this.user).subscribe(
+      (user) => {
+        this.router.navigate(['users']);
+        this.dialogRef.close();
+      },
+      error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
+    );
+  }
 
   checkIfLastNameIsValid() {
     if (this.user.lastName) {
