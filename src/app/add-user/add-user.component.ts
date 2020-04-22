@@ -25,7 +25,6 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = new User();
     this.activatedRoute.queryParams.subscribe(
       (params) => {
         if (params['email']) {
@@ -38,6 +37,9 @@ export class AddUserComponent implements OnInit {
             this.emailIsValid = true;
             this.birthDateIsValid = true;
           });
+        }
+        else {
+          this.user = new User();
         }
       });
   }
