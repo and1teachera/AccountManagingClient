@@ -25,6 +25,7 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = new User();
     this.activatedRoute.queryParams.subscribe(
       (params) => {
         if (params['email']) {
@@ -52,13 +53,15 @@ export class AddUserComponent implements OnInit {
         error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
       );
     }
-    this.userService.createUser(this.user).subscribe(
-      (user) => {
-        this.router.navigate(['users']);
-        this.dialogRef.close();
-      },
-      error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
-    );
+    else {
+      this.userService.createUser(this.user).subscribe(
+        (user) => {
+          this.router.navigate(['users']);
+          this.dialogRef.close();
+        },
+        error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
+      );
+    }
   }
 
   checkIfLastNameIsValid() {
