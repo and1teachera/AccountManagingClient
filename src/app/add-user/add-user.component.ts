@@ -28,20 +28,21 @@ export class AddUserComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(
       (params) => {
         if (params['email']) {
-          this.mode = 'edit';
-          const email = params['email'];
-          this.userService.getUserByEmail(email).subscribe(user => {
-            this.user = user;
-            this.firstNameIsValid = true;
-            this.lastNameIsValid = true;
-            this.emailIsValid = true;
-            this.birthDateIsValid = true;
-          });
+          this.editUser(params['email']);
         }
         else {
+          this.mode = 'add';
           this.user = new User();
         }
       });
+  }
+
+  private editUser(email: any) {
+    this.mode = 'edit';
+    this.userService.getUserByEmail(email).subscribe(user => {
+      this.user = user;
+      this.confirmFields();
+    });
   }
 
   onSubmit() {
@@ -49,8 +50,8 @@ export class AddUserComponent implements OnInit {
     if (this.mode === 'edit') {
       this.userService.updateUser(this.user).subscribe(
         (user) => {
-          this.router.navigate(['users']);
           this.dialogRef.close();
+          this.router.navigate(['users']);
         },
         error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
       );
@@ -64,6 +65,13 @@ export class AddUserComponent implements OnInit {
         error => this.message = 'Something went wrong and the data wasn\'t saved. You may want to try again.'
       );
     }
+  }
+
+  private confirmFields() {
+    this.firstNameIsValid = true;
+    this.lastNameIsValid = true;
+    this.emailIsValid = true;
+    this.birthDateIsValid = true;
   }
 
   checkIfLastNameIsValid() {

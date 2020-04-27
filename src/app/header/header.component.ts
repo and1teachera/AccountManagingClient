@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddUserComponent} from '../add-user/add-user.component';
-import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +10,14 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router: Router) {
+  }
+
   ngOnInit(): void {
   }
 
-  openAddUserDialog(){
-      this.dialog.open(AddUserComponent);
+  openAddUserDialog() {
+    this.router.navigate([''], {});
+    this.dialog.open(AddUserComponent);
   }
 }
